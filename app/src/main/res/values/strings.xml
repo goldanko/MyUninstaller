@@ -6,5 +6,6 @@
 	<string name="about_title">About</string>
 	<string name="about_desc">This is simple MyUninstaller by goldankosoft</string>
 	<string name="ok_dialog_text">OK</string>
+	<string name="search_title">Search</string>
 
 </resources>
