@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -52,6 +53,8 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
         mListView = getListView();
         mListView.setDividerHeight(0);
         mListView.setFastScrollEnabled(true);
+        mListView.setTextFilterEnabled(true);
+
         setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getApps()));
     }
 
@@ -338,6 +341,7 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
             mListView.clearTextFilter();
         } else {
             mListView.setFilterText(newText.toString());
+            Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
