@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -371,7 +372,15 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
 
         TextView resultMessage = new TextView(this);
         resultMessage.setTextSize(20);
-        resultMessage.setText(getString(R.string.about_desc) + "\n\n" + "Version: " + BuildConfig.VERSION_NAME + "\n");
+		PackageInfo pInfo = null;
+		try {
+			pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		String versionName = pInfo.versionName;
+        
+		resultMessage.setText(getString(R.string.about_desc) + "\n\n" + "Version: " + versionName + "\n");
         resultMessage.setGravity(Gravity.CENTER);
 
         builder.setView(resultMessage);
