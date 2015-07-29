@@ -3,9 +3,11 @@
 
 	<string name="app_name">My Uninstaller</string>
 	<string name="action_about">About</string>
-	<string name="about_title">About</string>
-	<string name="about_desc">This is simple MyUninstaller by goldankosoft</string>
+	<string name="about_title">About My Uninstaller</string>
+	<string name="about_desc">This is simple uninstaller by \n© goldankosoft</string>
+	<string name="about_version">Version</string>
 	<string name="ok_dialog_text">OK</string>
-	<string name="search_title">Search</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

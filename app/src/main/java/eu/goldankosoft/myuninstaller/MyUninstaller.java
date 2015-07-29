@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -313,6 +314,7 @@ public class MyUninstaller extends ListActivity {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -335,9 +337,16 @@ public class MyUninstaller extends ListActivity {
 
     private void displayAboutDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.about_title));
-        builder.setMessage(getString(R.string.about_desc));
 
+        builder.setIcon(R.mipmap.about);
+        builder.setTitle(getString(R.string.about_title));
+
+        TextView resultMessage = new TextView(this);
+        resultMessage.setTextSize(20);
+        resultMessage.setText(getString(R.string.about_desc));
+        resultMessage.setGravity(Gravity.CENTER);
+
+        builder.setView(resultMessage);
 
         builder.setPositiveButton(R.string.ok_dialog_text, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
