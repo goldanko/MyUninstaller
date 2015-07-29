@@ -343,7 +343,7 @@ public class MyUninstaller extends ListActivity {
 
         TextView resultMessage = new TextView(this);
         resultMessage.setTextSize(20);
-        resultMessage.setText(getString(R.string.about_desc));
+        resultMessage.setText(getString(R.string.about_desc) + "\n\n" + "Version: " + BuildConfig.VERSION_NAME + "\n");
         resultMessage.setGravity(Gravity.CENTER);
 
         builder.setView(resultMessage);
