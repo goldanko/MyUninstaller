@@ -53,7 +53,6 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
         mListView = getListView();
         mListView.setDividerHeight(0);
         mListView.setFastScrollEnabled(true);
-//        mListView.setTextFilterEnabled(true);
 
         setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getApps()));
     }
@@ -357,10 +356,8 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
     @Override
     public boolean onQueryTextChange(String newText) {
         if (TextUtils.isEmpty(newText)) {
-            mListView.clearTextFilter();
             setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getApps()));
         } else {
-            mListView.setFilterText(newText.toString());
             setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getFilteredApps(newText.toString())));
         }
         return true;
