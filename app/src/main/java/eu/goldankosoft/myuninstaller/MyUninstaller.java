@@ -7,8 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -30,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -54,7 +53,7 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
         mListView = getListView();
         mListView.setDividerHeight(0);
         mListView.setFastScrollEnabled(true);
-        mListView.setTextFilterEnabled(true);
+//        mListView.setTextFilterEnabled(true);
 
         setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getApps()));
     }
@@ -146,6 +145,25 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
                 app.appIntName = appInfo.packageName;
                 app.appName = appInfo.loadLabel(mPkgMgr).toString();
                 appsList.add(app);
+            }
+        }
+        Collections.sort(appsList, new AppNameComparator());
+        return appsList;
+    }
+
+    private ArrayList<App> getFilteredApps(CharSequence filter) {
+        ArrayList<App> appsList = new ArrayList<App>();
+        List<ApplicationInfo> appsInstalled = mPkgMgr.getInstalledApplications(
+                PackageManager.GET_UNINSTALLED_PACKAGES);
+
+        for (ApplicationInfo appInfo : appsInstalled) {
+            if (!isSystemPackage(appInfo)) {
+                App app = new App();
+                app.appIntName = appInfo.packageName;
+                app.appName = appInfo.loadLabel(mPkgMgr).toString();
+                if(app.appName.toLowerCase().contains(filter)) {
+                    appsList.add(app);
+                }
             }
         }
         Collections.sort(appsList, new AppNameComparator());
@@ -340,9 +358,10 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
     public boolean onQueryTextChange(String newText) {
         if (TextUtils.isEmpty(newText)) {
             mListView.clearTextFilter();
+            setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getApps()));
         } else {
             mListView.setFilterText(newText.toString());
-            Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
+            setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getFilteredApps(newText.toString())));
         }
         return true;
     }
