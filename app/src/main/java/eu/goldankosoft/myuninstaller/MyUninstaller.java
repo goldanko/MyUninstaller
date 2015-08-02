@@ -131,6 +131,12 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
             items.addAll(getApps());
             notifyDataSetChanged();
         }
+		
+		private void reloadFilteredView(CharSequence filter) {
+            items.clear();
+            items.addAll(getFilteredApps(filter));
+            notifyDataSetChanged();
+        }
     }
 
     private ArrayList<App> getApps() {
@@ -356,9 +362,11 @@ public class MyUninstaller extends ListActivity implements SearchView.OnQueryTex
     @Override
     public boolean onQueryTextChange(String newText) {
         if (TextUtils.isEmpty(newText)) {
-            setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getApps()));
+        //    setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getApps()));
+			((AppAdapter) mListView.getAdapter()).reloadView();
         } else {
-            setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getFilteredApps(newText.toString())));
+        //    setListAdapter(new AppAdapter(this.getApplication(), R.layout.activity_main, getFilteredApps(newText.toString())));
+		    ((AppAdapter) mListView.getAdapter()).reloadFilteredView(newText.toString());
         }
         return true;
     }
